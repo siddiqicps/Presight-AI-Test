@@ -28,13 +28,13 @@ function WebSocketRequstPage() {
 
     socket.on('requestRecieved', (data) => {
       console.log('Received response from server:', data);
-      setMessages(prevData => [...prevData, data.msg])
+      setMessages(prevData => [...prevData, data])
     });
 
     socket.on('requestProcessed', (data) => {
       console.log('Received response from server:', data);
       setMessages(prevArray =>
-        prevArray.map((item, i) => (i+1 === data.index ? data.msg : item))
+        prevArray.map((item, i) => (i+1 === data.index ? data : item))
       );
     });
 

@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
   
     socket.on('submitRequest', (data) => {
         console.log('Request received:', data["text"]);
-        socket.emit('requestRecieved', {index:data["text"], msg: 'Pending Request '+data["text"], isProcessed:false});
+        socket.emit('requestRecieved', {index:data["text"], msg: 'Pending Request '+data["text"], isProcessing:true});
         requestQueue.push({ socket, data });
         processQueue();
     });
@@ -61,7 +61,7 @@ function processQueue() {
     // Simulate a time-consuming operation
     setTimeout(() => {
         const result = `Processed request: ${data["text"]}`;
-        socket.emit('requestProcessed', {index:data["text"], msg: result, isProcessed:true});
+        socket.emit('requestProcessed', {index:data["text"], msg: result, isProcessing:false});
         console.log('Request processed:', result);
 
         isProcessing = false;
